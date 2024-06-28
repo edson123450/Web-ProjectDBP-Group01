@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = '44.202.211.95';
+const BACKEND_URL = 'http://44.202.211.95';
 
 export const fetchRegister = async (firstName, lastName, email, password, age, isWorker, telephone, schedule) => {
     try {

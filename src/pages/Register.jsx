@@ -41,11 +41,11 @@ const Register = () => {
         <input onChange={(e)=>{setFirstName(e.target.value)}} id="firstName" required/>
         <label htmlFor='lastName'>Last Name</label>
         <input onChange={(e)=>{setLastName(e.target.value)}} id="lastName" required/>
-        <label htmlFor='email'>First Name</label>
+        <label htmlFor='email'>Email</label>
         <input onChange={(e)=>{setEmail(e.target.value)}} id="email" required/>
-        <label htmlFor='age'>First Name</label>
+        <label htmlFor='age'>Age</label>
         <input onChange={(e)=>{setAge(e.target.value)}} id="age" required/>
-        <label htmlFor='telephone'>First Name</label>
+        <label htmlFor='telephone'>Telephone</label>
         <input onChange={(e)=>{setTelephone(e.target.value)}} id="telephone" required/>
         <label htmlFor='password'>Password</label>
         <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="password" required/>
@@ -56,6 +56,7 @@ const Register = () => {
           onChange={handleCheckboxChange}
         />Is Worker?
         </label>
+        <button type="submit">Register</button>
         <button type="button" onClick={handleLoginRedirect}>Go to Login</button>
     </form>
     </>

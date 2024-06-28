@@ -2,9 +2,6 @@ import './App.css'
 import { BrowserRouter as Router,Routes,Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import CreateItem from './pages/CreateItem'
-import UpdateItem from './pages/UpdateItem'
-
 
 function App() {
 

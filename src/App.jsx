@@ -12,10 +12,6 @@ function App() {
         <Route path="/" element={<Navigate to="/login"/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/items" element={<Items/>}/>
-          <Route path="/create-item" element={<CreateItem/>}/>
-          <Route path="/item/:id" element={<UpdateItem/>}/>
-          <Route path="/cart" element={<Cart/>}/>
           <Route path="*" element={<Navigate to="/login"/>}/>
         </Routes>
       </Router>

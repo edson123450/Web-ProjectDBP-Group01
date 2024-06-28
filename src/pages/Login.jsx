@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchLogin } from '../services/api';
 
 const Login = () => {
-    const [username,setUsername]=useState('');
+    const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const navigate=useNavigate()
 
@@ -11,10 +11,10 @@ const Login = () => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         try{
-            const res=await fetchLogin(username,password);
+            const res=await fetchLogin(email,password);
             if(res.status===200){
                 localStorage.setItem('token',res.token);
-                navigate('/items');
+                navigate('/home');
             }
         }catch(error){
             console.log('Login failed: ',error);
@@ -29,8 +29,8 @@ const Login = () => {
     <>
     <h1>Login</h1>
     <form onSubmit={handleSubmit}>
-        <label htmlFor='username'>Username</label>
-        <input onChange={(e)=>{setUsername(e.target.value)}} id="username" required/>
+        <label htmlFor='email'>Email</label>
+        <input onChange={(e)=>{setEmail(e.target.value)}} id="email" required/>
         <label htmlFor='password'>Password</label>
         <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="username" required/>
         <button type="submit">Login</button>

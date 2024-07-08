@@ -1,0 +1,36 @@
+/* WorkerHomeScreen.css */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .worker-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f8f8f8, #e0e0e0);
+  }
+  
+  .worker-buttonRow {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .worker-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .worker-button:hover {
+    background-color: #0056b3;
+  }

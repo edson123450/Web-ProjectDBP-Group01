@@ -1,66 +1,161 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { fetchRegister } from '../services/api'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TextField, Button, Typography, Container, CssBaseline, Box, FormControlLabel, Checkbox } from '@mui/material';
+import { fetchRegister } from '../services/api';
+import '../styles/Register.css';
 
 const Register = () => {
-    const [firstName, setFirstName]=useState('');
-    const [lastName, setLastName]=useState('');
-    const [password,setPassword]=useState('');
-    const [email,setEmail]=useState('');
-    const [age, setAge]=useState('');
-    const [isWorker, setIsWorker]=useState(false);
-    const [telephone, setTelephone]=useState('');
-    const [schedule, setSchedule]=useState('');
-    const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    firstname: '',
+    lastname: '',
+    age: 0,
+    email: '',
+    password: '',
+    district: { name: '' },
+    direccion: '',
+    isWorker: false
+  });
 
-    const handleCheckboxChange = () => {
-        setIsWorker(!isWorker);
-    }
+  const [error, setError] = useState('');
 
-    const handleSubmit=async(e)=>{
-        e.preventDefault();
-        try{
-            const res=await fetchRegister(firstName, lastName, email, password, age, isWorker, telephone, schedule);
-            if(res){
-                console.log('Registration Successful!');
-                navigate('/login');
-            }
-        }catch(error){
-            console.log('Registration failed: ',error);
-        }
+  const handleInputChange = (field, value) => {
+    setData({
+      ...data,
+      [field]: value
+    });
+  };
+
+  const handleCheckboxChange = () => {
+    setData({
+      ...data,
+      isWorker: !data.isWorker
+    });
+  };
+
+  const handleRegister = async () => {
+    setError('');
+    try {
+      const role = await fetchRegister(data);
+      if (role === 'ROLE_CLIENT') {
+        navigate('/client-home');
+      } else if (role === 'ROLE_WORKER') {
+        navigate('/worker-home');
+      } else {
+        setError('There is some data that is incorrect');
+      }
+    } catch (error) {
+      console.log('Register failed: ', error);
+      setError('Something went wrong');
     }
-    const handleLoginRedirect=()=>{
-        navigate('/login');
-    }
+  };
 
   return (
-    <>
-    <h1>Register</h1>
-    <form onSubmit={handleSubmit}>
-        <label htmlFor='firstName'>First Name</label>
-        <input onChange={(e)=>{setFirstName(e.target.value)}} id="firstName" required/>
-        <label htmlFor='lastName'>Last Name</label>
-        <input onChange={(e)=>{setLastName(e.target.value)}} id="lastName" required/>
-        <label htmlFor='email'>Email</label>
-        <input onChange={(e)=>{setEmail(e.target.value)}} id="email" required/>
-        <label htmlFor='age'>Age</label>
-        <input onChange={(e)=>{setAge(e.target.value)}} id="age" required/>
-        <label htmlFor='telephone'>Telephone</label>
-        <input onChange={(e)=>{setTelephone(e.target.value)}} id="telephone" required/>
-        <label htmlFor='password'>Password</label>
-        <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="password" required/>
-        <label>
-        <input
-          type="checkbox"
-          checked={isWorker}
-          onChange={handleCheckboxChange}
-        />Is Worker?
-        </label>
-        <button type="submit">Register</button>
-        <button type="button" onClick={handleLoginRedirect}>Go to Login</button>
-    </form>
-    </>
-  )
-}
+    <Container component="main" maxWidth="xs" className="container">
+      <CssBaseline />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Register
+        </Typography>
+        {error ? <Typography color="error">{error}</Typography> : null}
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          label="First Name"
+          value={data.firstname}
+          onChange={(e) => handleInputChange('firstname', e.target.value)}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          label="Last Name"
+          value={data.lastname}
+          onChange={(e) => handleInputChange('lastname', e.target.value)}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          label="Age"
+          type="number"
+          value={data.age}
+          onChange={(e) => handleInputChange('age', e.target.value)}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          label="Email"
+          type="email"
+          value={data.email}
+          onChange={(e) => handleInputChange('email', e.target.value)}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          label="Password"
+          type="password"
+          value={data.password}
+          onChange={(e) => handleInputChange('password', e.target.value)}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={data.isWorker}
+              onChange={handleCheckboxChange}
+              name="isWorker"
+              color="primary"
+            />
+          }
+          label="Register as Worker"
+        />
+        {!data.isWorker && (
+          <>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="District"
+              value={data.district.name}
+              onChange={(e) => handleInputChange('district', { name: e.target.value })}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="Direccion"
+              value={data.direccion}
+              onChange={(e) => handleInputChange('direccion', e.target.value)}
+            />
+          </>
+        )}
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={handleRegister}
+        >
+          Register
+        </Button>
+        <Button
+          fullWidth
+          variant="text"
+          onClick={() => navigate('/login')}
+        >
+          Already have an account? Login
+        </Button>
+      </Box>
+    </Container>
+  );
+};
 
-export default Register
+export default Register;

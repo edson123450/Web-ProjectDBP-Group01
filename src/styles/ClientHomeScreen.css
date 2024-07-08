@@ -1,0 +1,34 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .client-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff; /* Puedes cambiar a #000000 para fondo negro */
+  }
+  
+  .client-buttonRow {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .client-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .client-button:hover {
+    background-color: #0056b3;
+  }
